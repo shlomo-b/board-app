@@ -2,7 +2,12 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
+# for CI github actionss
+COPY board/requirements.txt .
+
+# for local testing
+# COPY requirements.txt .
+
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
         gcc \
@@ -15,8 +20,14 @@ RUN apt-get update -y \
     && pip install --no-cache-dir -r requirements.txt \
     && rm -rf /var/lib/apt/lists/*
 
-COPY app ./app
-COPY static ./static
+# for CI github actions
+COPY board/app ./app
+COPY board/static ./static
+
+# for local testing
+# COPY static ./static
+# COPY app ./app
+
 
 RUN adduser --disabled-password --gecos "" appuser --uid 1000 \
     && chown -R appuser:appuser /app
