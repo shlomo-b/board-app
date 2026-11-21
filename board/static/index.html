@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boards</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32.png?v=1">
+  <link rel="icon" type="image/png" sizes="64x64" href="/static/img/favicon-64.png?v=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/styles.css?v=12">
+  <script>
+    if (localStorage.getItem("board-theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+</head>
+<body>
+  <div id="login-screen" class="login-screen" hidden>
+    <div class="login-art" aria-hidden="true">
+      <img class="login-photo" src="/static/img/login-board.jpg" alt="">
+    </div>
+    <div class="login-card">
+      <strong class="login-brand">Boards</strong>
+      <a id="saml-login" class="saml-login" href="/remote/saml/login" hidden>Log in via Azure</a>
+      <p id="login-or" class="login-or" hidden>or</p>
+      <form id="login-form" class="login-form">
+        <label>
+          Username
+          <input id="username" name="username" autocomplete="username" required>
+        </label>
+        <label>
+          Password
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <p id="login-error" class="error" hidden></p>
+        <button type="submit">Sign in</button>
+      </form>
+      <span class="login-brand-footer" aria-hidden="true">Boards</span>
+    </div>
+  </div>
+
+  <div id="app-screen" hidden>
+  <header class="topbar">
+    <div class="brand">
+      <label class="theme-toggle">
+        <input id="theme-toggle" type="checkbox">
+        <span>Dark mode</span>
+      </label>
+      <span class="logo" aria-hidden="true"></span>
+      <span>Boards</span>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="toolbar-side">
+      <select id="board-select" aria-label="Board"></select>
+      <button id="delete-board" class="btn-text danger" type="button" hidden>Delete board</button>
+    </div>
+    <div class="toolbar-center">
+      <button id="create-board" class="btn-text" type="button">+ Create board</button>
+      <button id="create-card" class="btn-create" type="button">Create</button>
+    </div>
+    <div class="user-block">
+      <div class="user-row">
+        <span id="welcome-user"></span>
+        <button id="logout" class="btn-text" type="button">Log out</button>
+      </div>
+      <span id="mongo-status" class="mongo-status"></span>
+    </div>
+  </div>
+
+  <p id="status" class="status" hidden></p>
+  <main id="board" class="board"></main>
+
+  <div id="modal" class="modal" hidden>
+    <form id="modal-form" class="dialog">
+      <h2 id="modal-title"></h2>
+      <div id="modal-fields"></div>
+      <div class="dialog-actions">
+        <button id="modal-delete" class="btn-text danger" type="button" hidden>Delete</button>
+        <span class="spacer"></span>
+        <button id="modal-cancel" class="btn-quiet" type="button">Cancel</button>
+        <button class="btn-create" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <footer class="app-footer">© 2026 Boards. All rights reserved by Shlomo Barzilai.</footer>
+  </div>
+
+  <dialog id="idle-dialog" class="idle-dialog">
+    <h3>Session timeout</h3>
+    <p>You will be logged out in 30 seconds due to inactivity.</p>
+    <div class="dialog-actions">
+      <button type="button" class="btn-create" id="idle-stay">Stay signed in</button>
+    </div>
+  </dialog>
+
+  <script src="/static/app.js?v=12"></script>
+</body>
+</html>
