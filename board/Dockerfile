@@ -8,6 +8,7 @@ COPY board/requirements.txt .
 # for local testing
 # COPY requirements.txt .
 
+# hadolint ignore=DL3008
 RUN apt-get update -y \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
