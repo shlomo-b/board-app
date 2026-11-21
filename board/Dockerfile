@@ -2,11 +2,7 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# for CI github actionss
-COPY board/requirements.txt .
-
-# for local testing
-# COPY requirements.txt .
+COPY requirements.txt .
 
 # hadolint ignore=DL3008
 RUN apt-get update -y \
@@ -22,14 +18,8 @@ RUN apt-get update -y \
     && pip install --no-cache-dir -r requirements.txt \
     && rm -rf /var/lib/apt/lists/*
 
-# for CI github actions
-COPY board/app ./app
-COPY board/static ./static
-
-# for local testing
-# COPY static ./static
-# COPY app ./app
-
+COPY app ./app
+COPY static ./static
 
 RUN adduser --disabled-password --gecos "" appuser --uid 1000 \
     && chown -R appuser:appuser /app
